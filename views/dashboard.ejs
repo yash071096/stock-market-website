@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+ <style>
+    /*
+    DEMO STYLE
+    */
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+    font-weight: 400;
+    font-size: 13px;
+    color: #67757c;
+
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+
+.navbar {
+    margin-left: 250px;
+    padding: 15px 10px;
+    background: #fff !important;
+    border: none;
+    border-radius: 0;
+    margin-right: -16px;
+    margin-bottom: 40px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s;
+}
+
+
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none !important;
+    border: none;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+
+i,
+span {
+    display: inline-block;
+}
+
+/* ---------------------------------------------------
+    card style
+----------------------------------------------------- */
+#containerdiv
+{
+    border-radius: 0;
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+
+}
+
+#webticker-update-example
+      {
+            position: relative;
+            overflow: hidden;
+            float: left;
+            font: bold 10px Verdana;
+            list-style-type: none;
+            margin: 0px;
+            padding: 0px;
+            width: 3177.2px;
+            transition-timing-function: linear;
+            transition-duration: 0s;
+            left: 0px;
+      }
+
+.card-body ul li 
+{
+    white-space: nowrap;
+    float: left;
+    padding: 0px 7px !important;
+    line-height: 24px !important;
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+
+
+.tic-hover li:hover {
+    background-color: #242a33 !important;
+}
+
+.tic-hover li
+      {
+        padding: 10px !important;
+        border-radius: 10px;
+      }
+/* ---------------------------------------------------
+    stock details style
+----------------------------------------------------- */
+      #stockdetail
+      {
+        padding: 1.25rem;
+        border-radius: 5px;
+
+      }
+#stockdetailsdiv
+{
+    margin-top: 10px;
+}
+
+
+/* ---------------------------------------------------
+    profile pic
+----------------------------------------------------- */
+       #profilepic {
+        border-radius: 50%!important;
+        width: 8em;
+        height: 8em;
+        -webkit-box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19)!important;
+        box-shadow: 0 8px 17px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19)!important;
+      }
+
+#profilediv
+{
+    margin-top: 20px !important;
+}
+
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #232a33;
+    color: #fff;
+    transition: all 0.3s;
+    height: 100%;
+}
+
+#sidebar.active {
+    min-width: 80px;
+    max-width: 80px;
+    text-align: center;
+}
+
+#sidebar.active .sidebar-header h3,
+#sidebar.active .CTAs {
+    display: none;
+}
+
+#sidebar.active .sidebar-header strong {
+    display: block;
+}
+
+#sidebar ul li a {
+    text-align: left;
+}
+
+#sidebar.active ul li a {
+    padding: 20px 10px;
+    text-align: center;
+    font-size: 0.85em;
+}
+
+#sidebar.active ul li a i {
+    margin-right: 0;
+    display: block;
+    font-size: 1.8em;
+    margin-bottom: 5px;
+}
+
+#sidebar.active ul ul a {
+    padding: 10px !important;
+}
+
+#sidebar.active .dropdown-toggle::after {
+    top: auto;
+    bottom: 10px;
+    right: 50%;
+    -webkit-transform: translateX(50%);
+    -ms-transform: translateX(50%);
+    transform: translateX(50%);
+}
+
+#sidebar .sidebar-header {
+    padding: 20px;
+    background: #6d7fcc;
+}
+
+#sidebar .sidebar-header strong {
+    display: none;
+    font-size: 1.8em;
+}
+
+#sidebar ul.components {
+    padding: 20px 0;
+    /*border-bottom: 1px solid #47748b;*/
+}
+
+#sidebar ul li a {
+    padding: 16px;
+    font-size: 1.1em;
+    display: block;
+}
+
+#sidebar ul li a:hover {
+    color: #7386D5;
+    background: #fff;
+}
+
+#sidebar ul li a i {
+    margin-right: 10px;
+}
+
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: #fff;
+    background: #303030;
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #6d7fcc;
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+a.download {
+    background: #fff;
+    color: #7386D5;
+}
+
+a.article,
+a.article:hover {
+    background: #6d7fcc !important;
+    color: #fff !important;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+
+#content {
+    width: calc(100% - 265px);
+    padding-bottom: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+    top:0;
+    right: 0;
+    margin-left: 250px;
+    margin-top: 100px;
+}
+
+#content.active {
+    width: calc(100% - 95px);
+    margin-left: 80px;
+}
+
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+    #sidebar {
+        min-width: 80px;
+        max-width: 80px;
+        text-align: center;
+        margin-left: -80px !important;
+    }
+    .dropdown-toggle::after {
+        top: auto;
+        bottom: 10px;
+        right: 50%;
+        -webkit-transform: translateX(50%);
+        -ms-transform: translateX(50%);
+        transform: translateX(50%);
+    }
+    #sidebar.active {
+        margin-left: 0 !important;
+    }
+    #sidebar .sidebar-header h3,
+    #sidebar .CTAs {
+        display: none;
+    }
+    #sidebar .sidebar-header strong {
+        display: block;
+    }
+    #sidebar ul li a {
+        padding: 20px 10px;
+    }
+    #sidebar ul li a span {
+        font-size: 0.85em;
+    }
+    #sidebar ul li a i {
+        margin-right: 0;
+        display: block;
+    }
+    #sidebar ul ul a {
+        padding: 10px !important;
+    }
+    #sidebar ul li a i {
+        font-size: 1.3em;
+    }
+    #sidebar {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+
+
+
+
+
+/* ---------------------------------------------------
+    watchlist
+----------------------------------------------------- */
+
+
+#watchListClose {
+  cursor: pointer;
+}
+
+#watchListAddBar{
+    padding: .25rem!important;
+    margin-bottom: 1.5rem!important;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    border-radius: 50rem!important;
+    background-color: #ffffff!important;
+}
+
+#watchListAddBarId{
+    border:0;
+    outline:none;
+    box-shadow:none;
+    background-color: #fff!important;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.input-group{
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    width: 100%;
+}
+
+.input-group-append{
+    margin-left: -1px;
+}
+
+
+
+
+/* ---------------------------------------------------
+    Stocks List and Plot Area
+----------------------------------------------------- */
+
+#stockListBar{
+    padding: .25rem!important;
+    margin-bottom: 1.5rem!important;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
+    border-radius: 50rem!important;
+}
+
+
+#stockListBarId{
+    border:0;
+    outline:none;
+    box-shadow:none;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+}
+
+.list-group{
+    max-height: 246px;
+    margin-bottom: 10px;
+    overflow:hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
+
+
+
+.list-group::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+.list-group::-webkit-scrollbar-track {
+  background: #d3d3d3; 
+}
+ 
+/* Handle */
+.list-group::-webkit-scrollbar-thumb {
+  background: #1E90FF; 
+}
+
+/* Handle on hover */
+.list-group::-webkit-scrollbar-thumb:hover {
+  background: #1E90FF; 
+}
+
+.list-group:hover{
+     overflow-y:scroll!important;
+}
+
+
+#span {
+  display: none;
+}
+
+a:hover span {
+  display: inline!important;
+}
+
+
+/*added*/
+
+#navbar.active
+{
+   margin-left: 80px; 
+}
+
+    
+ </style>
+
+    <title>Stock Market</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+
+        <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="static/jquery.webticker.min.js"> </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse','#content').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $('#content').toggleClass('active');
+                $('#navbar').toggleClass('active');
+                $('img').toggle();
+            
+            });
+        });
+        jQuery(document).ready(function(j)
+        {
+            var open = [];
+            var dates ; 
+            j.ajax({
+                url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo",
+                dataType: 'json',
+                success: function(result){
+                    console.log(result);
+                    var data = result["Time Series (Daily)"];
+                    dates = Object.keys(result["Time Series (Daily)"]);
+                    for (v of Object.values(data))
+                        open.push(parseFloat(v["1. open"] ));
+                    var trace = {
+                      x: dates,
+                      y: open,
+                      mode: 'lines'
+                    };
+                var data = [ trace];
+
+                Plotly.newPlot('stockPlotDiv', data);
+                }
+            }); 
+            j("#webticker-update-example").webTicker(
+            {
+                height:'100px'
+            });
+
+                
+
+        });
+    </script>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar" class="fixed-top" >
+            <div class="text-center" id="profilediv">
+            <h5 class="lead mb-3">Welcome, <%= user.name %></h5>
+            <img class="rounded-circle z-depth-2" alt="100x100" src="download.jpg" data-holder-rendered="true" id="profilepic"/>
+            <h6>Profile</h6>
+            <hr>
+          </div>
+
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <a href='dashboard.html' id="dashboard">
+                        <i class="fas fa-home"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="watchlist.html">
+                        <i class="fas fa-briefcase"></i>
+                        Watch List
+                    </a>
+                </li>
+                <li>
+                    <a href="#" data-toggle="collapse">
+                        <i class="fas fa-copy"></i>
+                        My Stocks
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-image"></i>
+                        Transactions
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-image"></i>
+                        Analytics
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-question"></i>
+                        FAQ
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-paper-plane"></i>
+                        Contact
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="navbar">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="wallet">
+                                    <i class="fa fa-wallet fa-lg"></i> Wallet <span class="badge badge-success">$100.00</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="cart">
+                                    <i class="fa fa-shopping-cart fa-lg"></i> Cart <span class="badge badge-pill badge-primary">3</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/users/logout" class="btn btn-secondary" href="#" id="logout">
+                                    <i class="btn btn-secondary"></i>Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="stocksdata">
+                <div class="container-fluid" id="containerdiv">
+                        <div class="card" id="cardtickerdiv">
+                            <div class="card-body">
+                                <ul id="webticker-update-example" class="tic-hover" >
+                                    <li class="cardscroll" >
+                                        <div>NSEI</div>
+                                        <div><span class="text-success">Open</span>:11,879.20$</div>
+                                        <div><span class="text-danger">High</span>:11,932.65$</div>
+                                        <div><span Class="text-danger">Low</span>:11,853.95$</div>
+           
+                                    </li>   
+                                    <li class="cardscroll">
+                                        <div>BSESN</div>
+                                        <div><span class="text-success">Open</span>:40,316.50$</div>
+                                        <div><span class="text-danger">High</span>:40,417.44$</div>
+                                        <div><span Class="text-danger">Low</span>:40,157.97$</div>
+                                    </li>  
+                                    <li class="cardscroll">
+                                        <div>WMT</div>
+                                        <div><span class="text-success">Open</span>:118.70$</div>
+                                        <div><span class="text-danger">High</span>:119.63$</div>
+                                        <div><span Class="text-danger">Low</span>:118.28$</div>
+                                    </li> 
+                                    <li class="cardscroll">
+                                        <div>COST</div>
+                                        <div><span class="text-success">Open</span>:301.55$</div>
+                                        <div><span class="text-danger">High</span>:302.33$</div>
+                                        <div><span Class="text-danger">Low</span>:299.71$</div>
+                                    </li> 
+                                    <li class="cardscroll">
+                                        <div>TGT</div>
+                                        <div><span class="text-success">Open</span>:110.63$</div>
+                                        <div><span class="text-danger">High</span>:110.86$</div>
+                                        <div><span Class="text-danger">Low</span>:109.76$</div>
+                                    </li> 
+                                    <li class="cardscroll">
+                                        <div>SHLX</div>
+                                        <div><span class="text-success">Open</span>:20.30$</div>
+                                        <div><span class="text-danger">High</span>:20.30$</div>
+                                        <div><span Class="text-danger">Low</span>:19.84$</div>
+                                    </li> 
+                                    <li class="cardscroll">
+                                        <div>EXHL</div>
+                                        <div><span class="text-success">Open</span>:0.01$</div>
+                                        <div><span class="text-danger">High</span>:0.03$</div>
+                                        <div><span Class="text-danger">Low</span>:0.03$</div>
+                                    </li> 
+                                    <li class="cardscroll">
+                                        <div>CDR</div>
+                                        <div><span class="text-success">Open</span>:2.77$</div>
+                                        <div><span class="text-danger">High</span>:2.91$</div>
+                                        <div><span Class="text-danger">Low</span>:2.74$</div>
+                                    </li> 
+                                    <li class="cardscroll">
+                                        <div>AMZN</div>
+                                        <div><span class="text-success">Open</span>:1,778.00$</div>
+                                        <div><span class="text-danger">High</span>:1,780.00$</div>
+                                        <div><span Class="text-danger">Low</span>:1,767.13$</div>
+                                     </li>
+                                     <li class="cardscroll">
+                                        <div>GS</div>
+                                        <div><span class="text-success">Open</span>:220.90$</div>
+                                        <div><span class="text-danger">High</span>:221.41$</div>
+                                        <div><span Class="text-danger">Low</span>:218.52$</div>
+                                    </li> 
+                                    <li class="cardscroll">
+                                        <div>INTC</div>
+                                        <div><span class="text-success">Open</span>:57.97$</div>
+                                        <div><span class="text-danger">High</span>:58.50$</div>
+                                        <div><span Class="text-danger">Low</span>:57.90$</div>
+                                    </li> 
+                                    <li class="cardscroll">
+                                        <div>Daw Jones</div>
+                                        <div><span class="text-success">Open</span>:27,580.70$</div>
+                                        <div><span class="text-danger">High</span>:27,714.39$</div>
+                                        <div><span Class="text-danger">Low</span>:27,517.67$</div>
+                                    </li>  
+                                    <li class="cardscroll">
+                                        <div>AAPL</div>
+                                        <div><span class="text-success">Open</span>:258.30$</div>
+                                        <div><span class="text-danger">High</span>:262.46$</div>
+                                        <div><span Class="text-danger">Low</span>:258.28$</div>
+                                    </li> 
+                                    <li class="cardscroll">
+                                        <div>BAC</div>
+                                        <div><span class="text-success">Open</span>:33.04$</div>
+                                        <div><span class="text-danger">High</span>:33.25$</div>
+                                        <div><span Class="text-danger">Low</span>:32.97$</div>
+                                    </li> 
+                                    <li class="cardscroll">
+                                        <div>SBUX</div>
+                                        <div><span class="text-success">Open</span>:81.75$</div>
+                                        <div><span class="text-danger">High</span>:82.30$</div>
+                                        <div><span Class="text-danger">Low</span>:81.37$</div>
+                                    </li> 
+                                    <li class="cardscroll">
+                                        <div>NKE</div>
+                                        <div><span class="text-success">Open</span>:89.37$</div>
+                                        <div><span class="text-danger">High</span>:90.10$</div>
+                                        <div><span Class="text-danger">Low</span>:89.37$</div>
+                                    </li> 
+                                </ul>
+                             </div>
+                             </div>
+                                <div class="box box-transparent no-shadow" id="stockdetailsdiv">
+                                    <div class="box-body" id="stockdetail">
+                                        <div class="d-md-flex justify-content-between align-items-center d-inline-block">
+                                            <h2 class="my-0">StockName</h2>
+                                                <div>
+                                                    <p class="mb-2 text-fade">Open Price</p>
+                                                    <h4 class="mb-0"><span class="text-success">0.24$</span></h4>
+                                                </div>
+                                                 <div class="d-lg-block d-none">
+                                                    <p class="mb-2 text-fade">Low Price</p>
+                                                    <h4 class="mb-0"><span class="text-success">0.45$</span></h4>
+                                                </div>
+                                                <div class="d-lg-block d-none">
+                                                    <p class="mb-2 text-fade">High Price</p>
+                                                    <h4 class="mb-0"><span class="ml-2 text-dark">0.21$</span></h4>
+                                                </div>
+                                                <div class="d-lg-block d-none">
+                                                    <p class="mb-2 text-fade">Prev Day Close</p>
+                                                    <h4 class="mb-0"><span class="ml-2 text-danger">0.11$</span></h4>
+                                                </div>
+                                                <div>
+                                                    <p class="mb-2 text-fade">Prev Day Start</p>
+                                                    <h4 class="mb-0"><span class="ml-2 text-dark">142.21$</span></h4>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            </div>
+
+
+            <div id="stocksListAndPlotArea">
+                
+                </br>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="card" style="width: 25rem;">
+                          <div class="card-body">
+                            <h5 class="card-title">Stocks</h5>
+                                    <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4" id="stockListBar">
+                                    <div class="input-group">
+                                      <input type="search" placeholder="Search Stock's" aria-describedby="button-addon1" class="form-control border-0 bg-light" id="stockListBarId">
+                                      <div class="input-group-append">
+                                        <button id="button-addon1" type="submit" class="btn btn-link text-primary"><i class="fa fa-search"></i></button>
+                                      </div>
+                                    </div>
+                                  </div>
+                            <div class="list-group list-group-flush">
+                              <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">Google
+                                <span id="span">
+                                    <span id="span"><i class="fa fa-chart-line"  style="color:#3cba54;"></i></span>
+                                    <i class="fa fa-shopping-cart" style="color:#FF5733;"></i></span>
+                              </a>
+                              <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">Apple <span id="span">
+                                    <span id="span"><i class="fa fa-chart-line"  style="color:#3cba54;"></i></span>
+                                    <i class="fa fa-shopping-cart" style="color:#FF5733;"></i></span>
+                              </a>
+                              <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">Microsoft 
+                                    <span id="span">
+                                    <span id="span"><i class="fa fa-chart-line"  style="color:#3cba54;"></i></span>
+                                    <i class="fa fa-shopping-cart" style="color:#FF5733;"></i></span>
+                              </a>
+                              <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">Facebook<span id="span">
+                                    <span id="span"><i class="fa fa-chart-line"  style="color:#3cba54;"></i></span>
+                                    <i class="fa fa-shopping-cart" style="color:#FF5733;"></i></span>
+                              </a>
+                              <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">Amazon <span id="span">
+                                    <span id="span"><i class="fa fa-chart-line"  style="color:#3cba54;"></i></span>
+                                    <i class="fa fa-shopping-cart" style="color:#FF5733;"></i></span>
+                              </a>
+                              <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">Apple<span id="span">
+                                    <span id="span"><i class="fa fa-chart-line"  style="color:#3cba54;"></i></span>
+                                    <i class="fa fa-shopping-cart" style="color:#FF5733;"></i></span>
+                              </a>
+                              <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">Microsoft<span id="span">
+                                    <span id="span"><i class="fa fa-chart-line"  style="color:#3cba54;"></i></span>
+                                    <i class="fa fa-shopping-cart" style="color:#FF5733;"></i></span>
+                              </a>
+                              <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">Facebook<span id="span">
+                                    <span id="span"><i class="fa fa-chart-line"  style="color:#3cba54;"></i></span>
+                                    <i class="fa fa-shopping-cart" style="color:#FF5733;"></i></span>
+                              </a>
+                              <a href="#" class="list-group-item d-flex justify-content-between align-items-center list-group-item-action">Amazon<span id="span">
+                                    <span id="span"><i class="fa fa-chart-line"  style="color:#3cba54;"></i></span>
+                                    <i class="fa fa-shopping-cart" style="color:#FF5733;"></i></span>
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="card" style="width: 40rem;">
+                              <div class="card-body">
+                                <div id="stockPlotDiv">
+                                    
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+
+</html>
