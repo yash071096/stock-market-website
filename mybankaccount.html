@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Stock Market</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="stockmarket.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+
+        <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="jquery.webticker.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse','#content').on('click', function () {
+                $('#sidebar').toggleClass('active');
+                $('#content').toggleClass('active');
+                $('#navbar').toggleClass('active');
+                $('img').toggle();
+            
+            });
+        });
+        $(document).ready(function()
+        {
+            $("#webticker-update-example").webTicker(
+            {
+                height:'100px'
+            });
+
+            var open = [];
+            var dates ; 
+            $.ajax({
+                url: "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=MSFT&apikey=demo",
+                dataType: 'json',
+                success: function(result){
+                    console.log(result);
+                    var data = result["Time Series (Daily)"];
+                    dates = Object.keys(result["Time Series (Daily)"]);
+                    for (v of Object.values(data))
+                        open.push(parseFloat(v["1. open"] ));
+                    var trace = {
+                      x: dates,
+                      y: open,
+                      mode: 'lines'
+                    };
+                var data = [ trace];
+
+                Plotly.newPlot('stockPlotDiv', data);
+                }
+            });     
+
+        });
+    </script>
+    <script>
+          function myFunction() {
+          // Declare variables
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+
+        function sortTable(n) {
+          var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+          table = document.getElementById("myTable");
+          switching = true;
+          // Set the sorting direction to ascending:
+          dir = "asc";
+          /* Make a loop that will continue until
+          no switching has been done: */
+          while (switching) {
+            // Start by saying: no switching is done:
+            switching = false;
+            rows = table.rows;
+            /* Loop through all table rows (except the
+            first, which contains table headers): */
+            for (i = 1; i < (rows.length - 1); i++) {
+              // Start by saying there should be no switching:
+              shouldSwitch = false;
+              /* Get the two elements you want to compare,
+              one from current row and one from the next: */
+              x = rows[i].getElementsByTagName("TD")[n];
+              y = rows[i + 1].getElementsByTagName("TD")[n];
+              /* Check if the two rows should switch place,
+              based on the direction, asc or desc: */
+              if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  // If so, mark as a switch and break the loop:
+                  shouldSwitch = true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                  // If so, mark as a switch and break the loop:
+                  shouldSwitch = true;
+                  break;
+                }
+              }
+            }
+
+            if (shouldSwitch) {
+              /* If a switch has been marked, make the switch
+              and mark that a switch has been done: */
+              rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+              switching = true;
+              // Each time a switch is done, increase this count by 1:
+              switchcount ++;
+            } else {
+              /* If no switching has been done AND the direction is "asc",
+              set the direction to "desc" and run the while loop again. */
+              if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+              }
+            }
+          }
+        }
+        function sortTablenum(n) {
+          var table, rows, switching, i, x, y, shouldSwitch;
+          table = document.getElementById("myTable");
+          switching = true;
+          /*Make a loop that will continue until
+          no switching has been done:*/
+          while (switching) {
+            //start by saying: no switching is done:
+            switching = false;
+            rows = table.rows;
+            /*Loop through all table rows (except the
+            first, which contains table headers):*/
+            for (i = 1; i < (rows.length - 1); i++) {
+              //start by saying there should be no switching:
+              shouldSwitch = false;
+              /*Get the two elements you want to compare,
+              one from current row and one from the next:*/
+              x = rows[i].getElementsByTagName("TD")[n];
+              y = rows[i + 1].getElementsByTagName("TD")[n];
+              //check if the two rows should switch place:
+              if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                //if so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+              }
+            }
+            if (shouldSwitch) {
+              /*If a switch has been marked, make the switch
+              and mark that a switch has been done:*/
+              rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+              switching = true;
+            }
+          }
+        }
+        </script>
+		
+		<style>
+			.modal-header, h4, .close 
+			{
+				background-color: #000;
+				color:white !important;
+				text-align: center;
+				font-size: 30px;
+			}
+			.modal-footer 
+			{
+				background-color: #000;
+			}
+		</style>
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar" class="fixed-top" >
+            <div class="text-center" id="profilediv">
+            <h5>User Name</h5>
+            <img class="rounded-circle z-depth-2" alt="100x100" src="download.jpg" data-holder-rendered="true" id="profilepic"/>
+            <h6>Profile</h6>
+            <hr>
+          </div>
+
+            <ul class="list-unstyled components">
+                <li>
+                    <a href="dashboard.html" id="dashboard">
+                        <i class="fas fa-home"></i>
+                        Dashboard
+                    </a>
+                </li>
+                <li>
+                    <a href="watchlist.html">
+                        <i class="fas fa-briefcase"></i>
+                        Watch List
+                    </a>
+                </li>
+                <li>
+                    <a href="mystocks.html" data-toggle="collapse">
+                        <i class="fas fa-copy"></i>
+                        My Stocks
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-image"></i>
+                        Transactions
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="#">
+                        <i class="fas fa-image"></i>
+                        Bank Accounts
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-question"></i>
+                        FAQ
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fas fa-paper-plane"></i>
+                        Contact
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" id="navbar">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="wallet">
+                                    <i class="fa fa-wallet fa-lg"></i> Wallet <span class="badge badge-success">$100.00</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="cart">
+                                    <i class="fa fa-shopping-cart fa-lg"></i> Cart <span class="badge badge-pill badge-primary">3</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="logout">
+                                    <i class="fa fa-sign-out-alt fa-lg"></i>Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div id="stocksdata">
+                
+            <div></div>
+			
+			   
+			<!-- Modal -->
+			  <div class="modal fade" id="bankModal" role="dialog">
+				<div class="modal-dialog">
+				
+				  <!-- Modal content-->
+				  <div class="modal-content">
+					<div class="modal-header" style="padding:35px 50px;">
+					  <h4><span class="glyphicon glyphicon-lock"></span> Add Account</h4>
+					  <button type="button" class="close" data-dismiss="modal">&times;</button>
+					  
+					</div>
+					<div class="modal-body" style="padding:40px 50px;">
+					  <form role="form">
+						<div class="form-group">
+						  <label for="accountnumber"><span class="glyphicon glyphicon-user"></span> Account Number</label>
+						  <input type="text" class="form-control" id="account_num" placeholder="Account Number">
+						</div>
+						<div class="form-group">
+						  <label for="routingnum"><span class="glyphicon glyphicon-eye-open"></span> Routing Number</label>
+						  <input type="text" class="form-control" id="routing_num" placeholder="Routing Number">
+						</div>
+						<button type="submit"><span class="glyphicon glyphicon-off"></span> Add</button>
+					  </form>
+					</div>
+					<div class="modal-footer">
+					</div>
+				  </div>
+				</div>
+			  </div>
+			
+			
+
+            <div id="stocksListAndPlotArea" style="margin-left: 30px;">
+                
+                </br>
+                    <div class="row" id="cardtickerdiv">
+                        <div class="card" style="width: 67rem;">
+                          <div class="card-body">
+                            <h5 class="card-title">Bank Accounts</h5>
+							<br />
+								<table class="table">
+									  <thead class="thead-dark">
+										<tr>
+										  <th scope="col">#</th>
+										  <th scope="col">Account Number</th>
+										  <th scope="col">Routing Number</th>
+										  <th scope="col">Actions</th>
+										</tr>
+									  </thead>
+									  <tbody>
+										<tr>
+										  <th scope="row">1</th>
+										  <td>12254569823697452</td>
+										  <td>1234567</td>
+										  <td><button onclick="delRow(event)">Remove</button></td>
+										</tr>
+										<tr>
+										  <th scope="row">2</th>
+										  <td>478965236412578965</td>
+										  <td>7895631</td>
+										  <td><button onclick="delRow(event)">Remove</button></td>
+										</tr>
+										<tr>
+										  <th scope="row">3</th>
+										  <td>123654789963254154</td>
+										  <td>4589634</td>
+										  <td><button onclick="delRow(event)">Remove</button></td>
+										</tr>
+									  </tbody>
+									  </table>
+									  <button id="addAccBtn"> Add Account </button>
+							</div>
+                        </div>
+                        
+                    </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+          function myFunction() {
+          // Declare variables
+          var input, filter, table, tr, td, i, txtValue;
+          input = document.getElementById("myInput");
+          filter = input.value.toUpperCase();
+          table = document.getElementById("myTable");
+          tr = table.getElementsByTagName("tr");
+
+          // Loop through all table rows, and hide those who don't match the search query
+          for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[1];
+            if (td) {
+              txtValue = td.textContent || td.innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+              } else {
+                tr[i].style.display = "none";
+              }
+            }
+          }
+        }
+
+        function sortTable(n) {
+          var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+          table = document.getElementById("myTable");
+          switching = true;
+          // Set the sorting direction to ascending:
+          dir = "asc";
+          /* Make a loop that will continue until
+          no switching has been done: */
+          while (switching) {
+            // Start by saying: no switching is done:
+            switching = false;
+            rows = table.rows;
+            /* Loop through all table rows (except the
+            first, which contains table headers): */
+            for (i = 1; i < (rows.length - 1); i++) {
+              // Start by saying there should be no switching:
+              shouldSwitch = false;
+              /* Get the two elements you want to compare,
+              one from current row and one from the next: */
+              x = rows[i].getElementsByTagName("TD")[n];
+              y = rows[i + 1].getElementsByTagName("TD")[n];
+              /* Check if the two rows should switch place,
+              based on the direction, asc or desc: */
+              if (dir == "asc") {
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  // If so, mark as a switch and break the loop:
+                  shouldSwitch = true;
+                  break;
+                }
+              } else if (dir == "desc") {
+                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                  // If so, mark as a switch and break the loop:
+                  shouldSwitch = true;
+                  break;
+                }
+              }
+            }
+
+            if (shouldSwitch) {
+              /* If a switch has been marked, make the switch
+              and mark that a switch has been done: */
+              rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+              switching = true;
+              // Each time a switch is done, increase this count by 1:
+              switchcount ++;
+            } else {
+              /* If no switching has been done AND the direction is "asc",
+              set the direction to "desc" and run the while loop again. */
+              if (switchcount == 0 && dir == "asc") {
+                dir = "desc";
+                switching = true;
+              }
+            }
+          }
+        }
+        function sortTablenum(n) {
+          var table, rows, switching, i, x, y, shouldSwitch;
+          table = document.getElementById("myTable");
+          switching = true;
+          /*Make a loop that will continue until
+          no switching has been done:*/
+          while (switching) {
+            //start by saying: no switching is done:
+            switching = false;
+            rows = table.rows;
+            /*Loop through all table rows (except the
+            first, which contains table headers):*/
+            for (i = 1; i < (rows.length - 1); i++) {
+              //start by saying there should be no switching:
+              shouldSwitch = false;
+              /*Get the two elements you want to compare,
+              one from current row and one from the next:*/
+              x = rows[i].getElementsByTagName("TD")[n];
+              y = rows[i + 1].getElementsByTagName("TD")[n];
+              //check if the two rows should switch place:
+              if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                //if so, mark as a switch and break the loop:
+                shouldSwitch = true;
+                break;
+              }
+            }
+            if (shouldSwitch) {
+              /*If a switch has been marked, make the switch
+              and mark that a switch has been done:*/
+              rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+              switching = true;
+            }
+          }
+        }
+        function convertDate(d) {
+          var p = d.split("/");
+          return +(p[2]+p[1]+p[0]);
+        }
+
+        function sortByDate(n) {
+          var tbody = document.querySelector("#results tbody");
+          // get trs as array for ease of use
+          var rows = [].slice.call(tbody.querySelectorAll("tr"));
+          
+          rows.sort(function(a,b) {
+            return convertDate(a.cells[0].innerHTML) - convertDate(b.cells[0].innerHTML);
+          });
+          
+          rows.forEach(function(v) {
+            tbody.appendChild(v); // note that .appendChild() *moves* elements
+          });
+        }
+		
+		
+		$(document).ready(function(){
+		  $("#addAccBtn").click(function(){
+			$("#bankModal").modal();
+		  });
+		});
+
+        //document.querySelector("button").addEventListener("click", sortByDate);
+</script>
+</body>
+
+</html>

@@ -2,6 +2,7 @@ const express = require('express');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
 const passport = require('passport');
+var path = require('path');
 const flash = require('connect-flash');
 const session = require('express-session');
 
@@ -24,6 +25,7 @@ mongoose
 
 // EJS
 app.use(expressLayouts);
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // Express body parser

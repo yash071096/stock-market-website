@@ -14,10 +14,10 @@ router.get('/register', forwardAuthenticated, (req, res) => res.render('register
 
 // Register
 router.post('/register', (req, res) => {
-  const { name, email, password, password2 } = req.body;
+  const { name, email, physical_address1, physical_address2, physical_address3, acc_num,routing_num, password, password2 } = req.body;
   let errors = [];
 
-  if (!name || !email || !password || !password2) {
+  if (!name || !email || !physical_address1 || !physical_address2 || !physical_address3 || !password || !password2) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
@@ -34,6 +34,9 @@ router.post('/register', (req, res) => {
       errors,
       name,
       email,
+      physical_address1,
+      physical_address2,
+      physical_address3,
       password,
       password2
     });
@@ -45,6 +48,9 @@ router.post('/register', (req, res) => {
           errors,
           name,
           email,
+          physical_address1,
+          physical_address2,
+          physical_address3,
           password,
           password2
         });
@@ -52,8 +58,16 @@ router.post('/register', (req, res) => {
         const newUser = new User({
           name,
           email,
+          physical_address1,
+          physical_address2,
+          physical_address3,
+          bank_acc: [{
+            acc_num,
+            routing_num
+          }],
           password
         });
+        console.log(newUser);
 
         bcrypt.genSalt(10, (err, salt) => {
           bcrypt.hash(newUser.password, salt, (err, hash) => {
