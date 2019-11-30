@@ -12,4 +12,15 @@ router.get('/dashboard', ensureAuthenticated, (req, res) =>
   })
 );
 
+router.get('/mystock', ensureAuthenticated, (req, res) =>
+  res.render('mystock', {
+    user: req.user
+  })
+);
+
+router.get('/mybankaccount', ensureAuthenticated, (req, res) =>
+  res.render('mybankaccount', {
+    user: req.user
+  })
+);
 module.exports = router;
