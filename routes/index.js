@@ -23,4 +23,17 @@ router.get('/mybankaccount', ensureAuthenticated, (req, res) =>
     user: req.user
   })
 );
+
+router.get('/user_profile', ensureAuthenticated, (req, res) =>
+  res.render('user_profile', {
+    user: req.user
+  })
+);
+router.get('/stockhist', ensureAuthenticated, (req, res) =>
+  res.render('stockhist', {
+    user: req.user
+  })
+);
+
+
 module.exports = router;

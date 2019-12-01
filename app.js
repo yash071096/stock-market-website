@@ -55,6 +55,10 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use((req,res,next)=>{
+  res.set('Cache-Control','no-store,no-cache,must-revalidate,private')
+  next()
+});
 // Routes
 app.use('/', require('./routes/index.js'));
 app.use('/users', require('./routes/users.js'));

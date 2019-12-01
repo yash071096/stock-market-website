@@ -80,8 +80,10 @@
         <nav id="sidebar" class="fixed-top" >
             <div class="text-center" id="profilediv">
             <h5 class="lead mb-3">Welcome, <%= user.name %></h5>
-            <img class="rounded-circle z-depth-2" alt="100x100" src="download.jpg" data-holder-rendered="true" id="profilepic"/>
-            <h6>Profile</h6>
+            <!--img class="rounded-circle z-depth-2" alt="100x100" src="download.jpg" data-holder-rendered="true" id="profilepic"/-->
+            <a href="user_profile">
+            <h6>Edit Profile</h6>
+            </a>
             <hr>
           </div>
 
@@ -93,9 +95,9 @@
                     </a>
                 </li>
                 <li>
-                    <a href="watchlist.html">
+                    <a href="stockhist">
                         <i class="fas fa-briefcase"></i>
-                        Watch List
+                        Stock history
                     </a>
                 </li>
                 <li>

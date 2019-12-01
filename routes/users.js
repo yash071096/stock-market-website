@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+//const app = express.Router
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 // Load User model
@@ -14,15 +15,16 @@ router.get('/register', forwardAuthenticated, (req, res) => res.render('register
 
 // Register
 router.post('/register', (req, res) => {
-  const { name, email, physical_address1, physical_address2, physical_address3, acc_num,routing_num, password, password2 } = req.body;
+  const { name, email, physical_address1, physical_address2, physical_address3, p_name, password, password2 } = req.body;
   let errors = [];
 
-  if (!name || !email || !physical_address1 || !physical_address2 || !physical_address3 || !password || !password2) {
+  if (!name || !email || !physical_address1 || !physical_address2 || !physical_address3 || !p_name || !password || !password2) {
     errors.push({ msg: 'Please enter all fields' });
   }
 
   if (password != password2) {
     errors.push({ msg: 'Passwords do not match' });
+
   }
 
   if (password.length < 6) {
@@ -37,6 +39,7 @@ router.post('/register', (req, res) => {
       physical_address1,
       physical_address2,
       physical_address3,
+      p_name,
       password,
       password2
     });
@@ -51,6 +54,7 @@ router.post('/register', (req, res) => {
           physical_address1,
           physical_address2,
           physical_address3,
+          p_name,
           password,
           password2
         });
@@ -61,10 +65,7 @@ router.post('/register', (req, res) => {
           physical_address1,
           physical_address2,
           physical_address3,
-          bank_acc: [{
-            acc_num,
-            routing_num
-          }],
+          p_name,
           password
         });
         console.log(newUser);
@@ -106,5 +107,44 @@ router.get('/logout', (req, res) => {
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
 });
+
+//user_profile_edit
+router.post('/user_profile', (req, res, next) => {
+  const {name,physical_address1,physical_address2,physical_address3} = req.body;
+  const id = req.user._id;
+  User.findOneAndUpdate(
+    {_id: id},
+    {$set:{name:name, physical_address1:physical_address1, physical_address2:physical_address2, physical_address3:physical_address3}},
+    {new:true},
+    function(err,model){
+      if(err){
+        console.log(error);
+        res.send({update:false});
+      } else{
+        console.log(model);
+        res.send({update:true});
+      }
+    });
+});
+
+//forgot password
+router.post('/user_profile', (req, res, next) => {
+  const {name,physical_address1,physical_address2,physical_address3} = req.body;
+  const id = req.user._id;
+  User.findOneAndUpdate(
+    {_id: id},
+    {$set:{name:name, physical_address1:physical_address1, physical_address2:physical_address2, physical_address3:physical_address3}},
+    {new:true},
+    function(err,model){
+      if(err){
+        console.log(error);
+        res.send({update:false});
+      } else{
+        console.log(model);
+        res.send({update:true});
+      }
+    });
+});
+
 
 module.exports = router;

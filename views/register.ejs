@@ -63,27 +63,17 @@
         </div>
 
         <div class="form-group">
-            <label for="physical_address">Enter bnk</label>
+            <label for="physical_address">Enter your pet name</label>
             <input
-              type="number"
-              id="acc_num"
-              name="acc_num"
+              type="name"
+              id="p_name"
+              name="p_name"
               class="form-control"
-              placeholder="Enter acc"
-              value="<%= typeof acc_num != 'undefined' ? acc_num : '' %>"
-            />
-            <input
-            type="number"
-            id="routing_num"
-            name="routing_num"
-            class="form-control"
-            placeholder="Enter rn"
-            value="<%= typeof routing_num != 'undefined' ? routing_num : '' %>"
+              placeholder="Enter pet name (Security Question)"
+              value="<%= typeof p_name != 'undefined' ? p_name : '' %>"
           />
-          </div>
-
+        </div>
         
-
         <div class="form-group">
           <label for="password">Password</label>
           <input
