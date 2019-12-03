@@ -13,6 +13,8 @@ router.get('/login', forwardAuthenticated, (req, res) => res.render('login'));
 // Register Page
 router.get('/register', forwardAuthenticated, (req, res) => res.render('register'));
 
+
+
 // Register
 router.post('/register', (req, res) => {
   const { name, email, physical_address1, physical_address2, physical_address3, p_name, password, password2 } = req.body;
@@ -101,12 +103,34 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
+/*forgot_pass
+router.get('/forgot_password', (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/reset_password',
+    failureRedirect: '/users/login',
+    failureFlash: true
+  })(req, res, next);
+});
+
+// reset_pass
+
+router.get('/reset_password', (req, res, next) => {
+  passport.authenticate('local', {
+    successRedirect: '/login',
+    failureRedirect: '/users/forgot_password',
+    failureFlash: true
+  })(req, res, next);
+});
+*/
+
 // Logout
 router.get('/logout', (req, res) => {
   req.logout();
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
 });
+
+
 
 //user_profile_edit
 router.post('/user_profile', (req, res, next) => {
@@ -128,16 +152,42 @@ router.post('/user_profile', (req, res, next) => {
 });
 
 //forgot password
-router.post('/user_profile', (req, res, next) => {
-  const {name,physical_address1,physical_address2,physical_address3} = req.body;
-  const id = req.user._id;
-  User.findOneAndUpdate(
-    {_id: id},
-    {$set:{name:name, physical_address1:physical_address1, physical_address2:physical_address2, physical_address3:physical_address3}},
-    {new:true},
+router.post('/forgot_password', (req, res, next) => {
+  const {email,p_name} = req.body;
+  //const id = req.user._id;
+  User.findOne(
+    {email: email},
     function(err,model){
       if(err){
         console.log(error);
+        req.flash('success_msg', 'Wrong email or password');
+        res.render('/forgot_password');
+      } else{
+        console.log(model.p_name);
+        //var body1 = JSON.parse(model);
+        if(model.p_name == p_name){
+        req.flash('success_msg', 'sahi hai');
+        res.redirect('/reset_password');
+        }
+        else{
+          req.flash('success_msg', 'Wrong email or password');
+          res.redirect('/forgot_password');
+        }
+      }
+    });
+});
+
+//reset_password
+router.post('/reset_password', (req, res, next) => {
+  const {email, password, password2} = req.body;
+  //const id = req.user._id;
+  User.findOneAndUpdate(
+    {email: email},
+    {$set:{password: password,password2: password2}},
+    {new:true},
+    function(err,model){
+      if(err){
+        //console.log(error);
         res.send({update:false});
       } else{
         console.log(model);
@@ -145,6 +195,4 @@ router.post('/user_profile', (req, res, next) => {
       }
     });
 });
-
-
 module.exports = router;

@@ -34,6 +34,12 @@ router.get('/stockhist', ensureAuthenticated, (req, res) =>
     user: req.user
   })
 );
+router.get('/forgot_password', (req, res) =>
+  res.render('forgot_password')
+);
+router.get('/reset_password', (req, res) =>
+  res.render('reset_password')
+);
 
 
 module.exports = router;
