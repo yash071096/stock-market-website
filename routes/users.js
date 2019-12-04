@@ -177,7 +177,8 @@ router.post('/forgot_password', (req, res, next) => {
     });
 });
 
-//reset_password
+/*
+//reset_password-->working code
 router.post('/reset_password', (req, res, next) => {
   const {email, password, password2} = req.body;
   //const id = req.user._id;
@@ -191,8 +192,39 @@ router.post('/reset_password', (req, res, next) => {
         res.send({update:false});
       } else{
         console.log(model);
-        res.send({update:true});
+        //res.send({update:true});
+        res.redirect('/login');
       }
     });
 });
+*/
+
+//reset_password-->trial
+router.post('/reset_password', (req, res, next) => {
+  var {email, password} = req.body;
+  //const id = req.user._id;
+  bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(password, salt, (err, hash) => {
+      if (err) throw err;
+      console.log(hash);
+      password = hash;
+      User.findOneAndUpdate( {email: email },
+        {$set:{password: hash}},{new:true}, function(err,model){
+          if(err){
+            console.log(err);
+          } else{
+            console.log(model);
+          }
+        });
+    });
+
+     
+        console.log('here');
+      
+        res.redirect('/users/login');
+      })
+  });
+
+
+
 module.exports = router;
